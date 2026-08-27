@@ -46,4 +46,3 @@ Configuración inicial (una sola vez):
 
 - Los tokens de diseño (colores, tipografías, espaciados) viven como variables CSS en `src/styles/main.css` (`:root`).
 - Las imágenes y otros assets estáticos van en `public/` y se referencian con rutas relativas a la raíz (Vite les aplica el `base` automáticamente).
-# telas-de-colombia
