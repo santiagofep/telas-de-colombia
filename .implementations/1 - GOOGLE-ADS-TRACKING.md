@@ -67,7 +67,7 @@ Make each CTA distinguishable with a `data-track-label` attribute on every Whats
 ### Implementation steps
 
 1. ~~Get the conversion ID and label from the client.~~ Done: `AW-16469976523` / `j_9VCOLa6ewcEMvLv609`.
-2. ~~Add `data-track-label` to all 13 WhatsApp links in `index.html`.~~ Done. Labels: `header`, `hero`, `tela-seda`, `tela-satin`, `tela-algodon`, `tela-dril`, `tela-licra`, `tela-combinaciones`, `dotaciones`, `mayoristas`, `mayoristas-telefono`, `ubicacion`, `cta-final`.
+2. ~~Add `data-track-label` to all 12 WhatsApp links in `index.html`.~~ Done. Labels: `header`, `hero`, `tela-satin`, `tela-algodon`, `tela-dril`, `tela-licra`, `tela-combinaciones`, `dotaciones`, `mayoristas`, `mayoristas-telefono`, `ubicacion`, `cta-final`.
 3. ~~Update `track()` in `src/main.js`.~~ Done. Reads the label from the clicked element and sends `conversion` with `send_to`, `value: 1.0`, `currency: 'COP'` and `event_label`. Falls back to a generic `whatsapp_click` event if the label is still a placeholder.
 4. ~~Add a dev override.~~ Done. `?track=1` in the URL (or `localStorage.track = "1"`) logs each click to the console.
 5. ~~Replace the placeholders in `index.html`.~~ Done.

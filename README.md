@@ -20,11 +20,11 @@ Landing page estática de **Telas de Colombia By Grupo Macasi** (telas al detal 
 ## Funcionalidades
 
 - **Tracking de conversiones** (Meta Pixel y Google Ads): la config vive en `index.html` (`META_PIXEL_ID`, `GOOGLE_ADS_ID`, `GOOGLE_ADS_CONVERSION_LABEL`). Cada script solo se carga cuando su ID dejó de ser el placeholder. La conversión es el clic en cualquier enlace de WhatsApp (`data-track="whatsapp"`):
-  - `data-track-label` identifica el botón (`header`, `hero`, `tela-seda`, `mayoristas`, `dotaciones`, `cta-final`…) y se envía como `content_name` a Meta y `event_label` a Google.
+  - `data-track-label` identifica el botón (`header`, `hero`, `tela-satin`, `mayoristas`, `dotaciones`, `cta-final`…) y se envía como `content_name` a Meta y `event_label` a Google.
   - `data-track-event="Lead"` marca los botones B2B (mayoristas y dotaciones); el resto envía `Contact`.
   - Google Ads solo cuenta la conversión cuando `GOOGLE_ADS_CONVERSION_LABEL` tiene el label real; mientras tanto envía un evento `whatsapp_click` genérico.
   - Para verificar el cableado sin IDs reales, abre la página con `?track=1`: cada clic imprime `[track] <evento> <label>` en la consola.
-- **Fotos**: las imágenes en `public/img/` son fotos de stock de Freepik (descargadas con la cuenta premium de Magnific, sin requisito de atribución). Para usar fotos reales del negocio, reemplaza los archivos en `public/img/` manteniendo los mismos nombres (`bodega.jpg`, `seda.jpg`, `uniforme.jpg`, etc.).
+- **Fotos**: las imágenes en `public/img/` son fotos de stock de Freepik (descargadas con la cuenta premium de Magnific, sin requisito de atribución). Para usar fotos reales del negocio, reemplaza los archivos en `public/img/` manteniendo los mismos nombres (`bodega.jpg`, `satin.jpg`, `uniforme.jpg`, etc.).
 - **Responsive**: el diseño original es de escritorio; se agregaron breakpoints en 960px y 640px.
 
 ## Desarrollo

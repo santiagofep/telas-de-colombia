@@ -59,7 +59,7 @@ function loadGoogleAds() {
 }
 
 // name: "Contact" (detal) o "Lead" (mayoristas / dotaciones).
-// label: identifica el botón (header, hero, tela-seda, mayoristas…).
+// label: identifica el botón (header, hero, tela-satin, mayoristas…).
 function track(name, label) {
   const event = name === 'Lead' ? 'Lead' : 'Contact'
   if (debugEnabled()) {
