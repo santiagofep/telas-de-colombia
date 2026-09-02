@@ -13,7 +13,7 @@ Landing page estática de **Telas de Colombia By Grupo Macasi** (telas al detal 
 │       └── main.css        # Tokens de diseño, componentes y responsive
 ├── design/                 # Archivo de diseño original (referencia, no entra al build)
 ├── public/                 # Assets estáticos (imágenes, favicon…) copiados tal cual al build
-├── vite.config.js          # Config de Vite (base: /telas-de-colombia/ para GitHub Pages)
+├── vite.config.js          # Config de Vite (base: / porque el sitio vive en telascolombia.com.co)
 └── .github/workflows/deploy.yml  # CI: build y deploy automático a GitHub Pages
 ```
 
@@ -42,9 +42,9 @@ El deploy es automático: cada push a la rama `main` ejecuta el workflow de GitH
 
 Configuración inicial (una sola vez):
 
-1. Crear el repositorio en GitHub con el nombre `telas-de-colombia` (el `base` de `vite.config.js` debe coincidir con el nombre del repo).
-2. En el repo: **Settings → Pages → Source → GitHub Actions**.
-3. Hacer push a `main`. El sitio quedará en `https://<usuario>.github.io/telas-de-colombia/`.
+1. En el repo: **Settings → Pages → Source → GitHub Actions**.
+2. **Settings → Pages → Custom domain**: `telascolombia.com.co` (también está en `public/CNAME`). El `base` de `vite.config.js` es `/` porque el sitio se sirve desde la raíz del dominio.
+3. Hacer push a `main`. El sitio queda en `https://telascolombia.com.co/`.
 
 ## Notas
 

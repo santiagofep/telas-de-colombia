@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 
-// base must match the GitHub repo name so assets resolve on
-// https://<user>.github.io/telas-de-colombia/
+// The site is served from the custom domain telascolombia.com.co
+// (root path), so base is '/'. If it ever goes back to
+// <user>.github.io/telas-de-colombia/, set base to '/telas-de-colombia/'.
 export default defineConfig({
-  base: '/telas-de-colombia/',
+  base: '/',
   build: {
     outDir: 'dist',
   },
