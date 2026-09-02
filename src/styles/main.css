@@ -84,22 +84,13 @@ summary {
 
 .brand {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
 }
 
-.brand-name {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.brand-sub {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--faint);
+.brand img {
+  display: block;
+  width: auto;
+  height: 76px;
 }
 
 .site-nav {
@@ -832,6 +823,10 @@ summary {
 @media (max-width: 640px) {
   .container {
     padding: 0 20px;
+  }
+
+  .brand img {
+    height: 64px;
   }
 
   .hero h1 {
