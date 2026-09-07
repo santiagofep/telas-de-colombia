@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         dril: resolve(__dirname, 'dril.html'),
+        lona: resolve(__dirname, 'lona.html'),
       },
     },
   },

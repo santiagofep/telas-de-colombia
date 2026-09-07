@@ -135,6 +135,46 @@ summary {
   display: inline-block;
 }
 
+.whatsapp-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 52px;
+  padding: 0 18px 0 13px;
+  border-radius: 999px;
+  background: #168c4b;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(25, 21, 39, 0.2);
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.whatsapp-float:hover {
+  background: #0f713b;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.whatsapp-float__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.whatsapp-float__icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
 /* ============================================================
    Botones
    ============================================================ */
@@ -225,6 +265,63 @@ summary {
 .hero-cta-row .btn-primary {
   padding: 16px 26px;
   font-size: 16px;
+}
+
+.hero-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.choice-card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-height: 148px;
+  padding: 20px;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  color: var(--ink);
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.choice-card:hover {
+  color: var(--ink);
+  background: var(--surface);
+  transform: translateY(-3px);
+}
+
+.choice-card--primary {
+  background: var(--cta);
+  border-color: var(--cta);
+  color: var(--surface);
+}
+
+.choice-card--primary:hover {
+  background: var(--cta-hover);
+  color: var(--surface);
+}
+
+.choice-kicker {
+  font-size: 11px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.choice-card strong {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.choice-card > span:last-child {
+  margin-top: auto;
+  font-size: 13px;
+  line-height: 1.35;
+  opacity: 0.8;
 }
 
 .hero-note {
@@ -833,6 +930,10 @@ summary {
     font-size: 36px;
   }
 
+  .hero-choices {
+    grid-template-columns: 1fr;
+  }
+
   .section-head {
     flex-direction: column;
     align-items: flex-start;
@@ -858,5 +959,12 @@ summary {
 
   .mayoristas h2 {
     font-size: 32px;
+  }
+
+  .whatsapp-float {
+    right: 16px;
+    bottom: 16px;
+    min-height: 50px;
+    padding-right: 16px;
   }
 }
