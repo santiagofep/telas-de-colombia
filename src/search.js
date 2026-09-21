@@ -10,7 +10,7 @@ const EXTRA_KEYWORDS = {
   Entretela: 'cuello puño refuerzo camisa estructura',
   Franela: 'pijama camiseta abrigo suave invierno',
   Gabardina: 'pantalon chaqueta uniforme formal saco',
-  Hogar: 'sabana cortina mantel decoracion cojin funda genero linea cobija paño lency toalla algodon siliconado almohada dulceabrigo pañal microfibra limpion camiseta punto',
+  Hogar: 'sabana cortina mantel decoracion cojin funda genero linea cobija paño lency toalla algodon siliconado almohada dulceabrigo pañal microfibra limpion camiseta punto jardin azafran satin rayas clavel estampado quirurgico comertex poliester',
   Índigo: 'jean denim mezclilla moda urbana',
   Lona: 'carpa toldo bolso tapiceria impermeable industrial lienzo sublimar calima sheeting coraza cruda blanco',
   Moda: 'tendencia coleccion temporada diseño',
