@@ -1,5 +1,7 @@
 // Telas de Colombia — tracking de conversiones (Meta Pixel + Google Ads).
 
+import { wireFichaTecnicaButtons } from './ficha-tecnica.js'
+
 // --- Tracking -------------------------------------------------
 // Los pixeles solo se cargan si los IDs placeholder fueron
 // reemplazados por valores reales en index.html.
@@ -101,4 +103,5 @@ function initTracking() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initTracking()
+  wireFichaTecnicaButtons()
 })

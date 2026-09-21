@@ -435,6 +435,7 @@ summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  align-items: start;
 }
 
 .tela-card {
@@ -444,6 +445,7 @@ summary {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .tela-media {
@@ -452,6 +454,34 @@ summary {
   height: 190px;
   object-fit: cover;
   background: var(--ph1);
+}
+
+.tela-media--placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  height: 190px;
+  background: linear-gradient(160deg, #8355c4 0%, #6b3fa0 55%, #4a2b70 100%);
+}
+
+.tela-media--placeholder .tela-icon {
+  width: 72px;
+  height: 72px;
+  filter: brightness(0) invert(1);
+  opacity: 0.95;
+}
+
+.tela-media--placeholder .tela-placeholder-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  max-width: 85%;
 }
 
 .tela-body {
@@ -480,6 +510,174 @@ summary {
   padding-top: 12px;
   font-size: 14px;
   font-weight: 500;
+}
+
+.tela-body .ficha-link {
+  margin-top: 0;
+  padding-top: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* ============================================================
+   Tarjeta expandible (ficha técnica + colores + precios)
+   ============================================================ */
+.tela-card--expandable {
+  display: block;
+}
+
+.tela-card--expandable summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.tela-card--expandable summary::-webkit-details-marker {
+  display: none;
+}
+
+.tela-card--expandable summary::marker {
+  content: "";
+}
+
+.tela-toggle {
+  margin-top: auto;
+  padding-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.tela-card--expandable .arrow {
+  transition: transform 0.2s ease;
+}
+
+.tela-card--expandable[open] .arrow {
+  transform: rotate(90deg);
+}
+
+.tela-card--expandable summary .tela-body {
+  padding-bottom: 20px;
+}
+
+.tela-detail {
+  padding: 4px 18px 24px;
+  border-top: 1px solid var(--line2);
+}
+
+.tela-detail h4 {
+  margin: 20px 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.tela-detail h4:first-child {
+  margin-top: 20px;
+}
+
+.tela-detail-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.price-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.price-tier {
+  background: var(--ph1);
+  border-radius: 8px;
+  padding: 14px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  min-width: 0;
+}
+
+.price-tier .qty {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.price-tier .price {
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.price-note {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--faint);
+  font-style: italic;
+}
+
+/* ============================================================
+   Ficha técnica (composición, ancho, peso, calidad, colores)
+   ============================================================ */
+.spec-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.spec-list dt {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+
+.spec-list dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.color-swatches {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto 1fr auto;
+  column-gap: 16px;
+  row-gap: 10px;
+  align-items: center;
+}
+
+.color-chip {
+  display: contents;
+}
+
+.color-chip .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+}
+
+.color-chip .name {
+  font-size: 13px;
+  color: var(--body);
+}
+
+.color-chip .code {
+  color: var(--faint);
+  font-size: 12px;
+  justify-self: end;
 }
 
 /* ============================================================
@@ -947,6 +1145,18 @@ summary {
   .reviews-grid,
   .razones-grid,
   .dotaciones-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .spec-list {
+    grid-template-columns: 1fr;
+  }
+
+  .color-swatches {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .price-tiers {
     grid-template-columns: 1fr;
   }
 
