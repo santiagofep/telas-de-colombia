@@ -229,7 +229,7 @@ export async function descargarFichaTecnica(data) {
   }
 
   writeText('Medellín: ', INK)
-  writeLink('Calle 55#45-86', 'https://maps.google.com/?q=Calle+55+%2345-86+Medell%C3%ADn')
+  writeLink('Calle 55#45-14', 'https://maps.google.com/?q=Calle+55+%2345-14+La+Candelaria+Medell%C3%ADn')
   writeText('   Celular: ', INK)
   writeLink('318-626-26-26', 'https://wa.me/573186262626')
   writeText('   Instagram: ', INK)
