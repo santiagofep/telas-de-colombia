@@ -6,7 +6,7 @@
 const EXTRA_KEYWORDS = {
   Antifluidos: 'salud hospital clinica enfermero medico laboratorio aseo',
   Burda: 'forro empaque economica base perchada abrigo invierno frio peluche',
-  Dril: 'uniforme dotacion trabajo pesado industrial pantalon overol vulcano galeon orion camila jean licrado elastano licra comodo movimiento',
+  Dril: 'uniforme dotacion trabajo pesado industrial pantalon overol vulcano galeon orion camila jean licrado elastano licra comodo movimiento everest balsato santana monserrat',
   Entretela: 'cuello puño refuerzo camisa estructura',
   Franela: 'pijama camiseta abrigo suave invierno',
   Gabardina: 'pantalon chaqueta uniforme formal saco',
