@@ -140,7 +140,13 @@
           <h2>Nuestras telas</h2>
           <p class="section-note">Cuéntanos tu proyecto y te recomendamos la referencia, el acabado y la cantidad adecuada.</p>
         </div>
-        <div class="telas-grid">
+        <div class="tela-search">
+          <input type="search" id="tela-search-input" class="tela-search-input" placeholder="Busca por uso: uniformes, carpas, jean, cortinas…" aria-label="Buscar tela por palabra clave" />
+        </div>
+        <p id="tela-search-empty" class="tela-search-empty" hidden>
+          No encontramos una tela para "<span></span>". <a href="https://wa.me/573186262626?text=Hola%2C%20busco%20una%20tela%20para%20mi%20proyecto" target="_blank" rel="noopener" data-track="whatsapp" data-track-label="buscador-sin-resultados">Cuéntanos qué necesitas por WhatsApp →</a>
+        </p>
+        <div class="telas-grid" id="telas-grid">
           <article class="tela-card">
             <img class="tela-media" src="/img/antifluidos.png" alt="Antifluidos Telas de Colombia" loading="lazy" />
             <div class="tela-body">

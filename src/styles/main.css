@@ -431,6 +431,43 @@ summary {
 /* ============================================================
    Galería de telas
    ============================================================ */
+.tela-search {
+  margin-bottom: 24px;
+}
+
+.tela-search-input {
+  width: 100%;
+  max-width: 480px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 15px;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.tela-search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--ph1);
+}
+
+.tela-search-input::placeholder {
+  color: var(--faint);
+}
+
+.tela-search-empty {
+  margin: 0 0 24px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.tela-search-empty a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
 .telas-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
