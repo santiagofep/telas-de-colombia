@@ -85,12 +85,20 @@ summary {
 .brand {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
-.brand img {
+.brand-icon {
   display: block;
   width: auto;
-  height: 76px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.brand-wordmark {
+  display: block;
+  width: auto;
+  height: 22px;
 }
 
 .site-nav {
@@ -1267,8 +1275,13 @@ summary {
     background: var(--bg);
   }
 
-  .brand img {
-    height: 64px;
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-icon,
+  .brand-wordmark {
+    height: 28px;
   }
 
   .nav-toggle {
