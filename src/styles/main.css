@@ -1000,6 +1000,14 @@ summary {
   gap: 14px;
 }
 
+.dotaciones-note {
+  margin: 18px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
 /* ============================================================
    Mayoristas (panel invertido)
    ============================================================ */
