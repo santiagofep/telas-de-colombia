@@ -725,6 +725,23 @@ summary {
   margin-top: 20px;
 }
 
+.tela-detail ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+.tela-detail li + li {
+  margin-top: 6px;
+}
+
+.tela-detail li strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 .tela-detail-actions {
   margin-top: 20px;
   display: flex;
