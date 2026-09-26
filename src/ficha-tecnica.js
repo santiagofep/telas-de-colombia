@@ -116,6 +116,7 @@ function formatFechaHoy() {
 }
 
 // data: { tela, origen, tejido, acabado, composicion, peso, ancho }
+// Opcionales: { hilos, rendimiento, usos, lavado }
 export async function descargarFichaTecnica(data) {
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
   const pageWidth = doc.internal.pageSize.getWidth()
@@ -177,28 +178,45 @@ export async function descargarFichaTecnica(data) {
   doc.text(introLines, marginX, y)
   y += introLines.length * 6.5 + 20
 
-  // Tabla de datos.
+  // Tabla de datos. Los campos opcionales (hilos, rendimiento, usos) solo se
+  // imprimen si la tela los trae.
   const rows = [
     ['Tela:', data.tela],
     ['Origen:', data.origen],
     ['Tejido:', data.tejido],
     ['Acabado:', data.acabado],
     ['Composición:', data.composicion],
+    ['Hilos:', data.hilos],
     ['Peso:', data.peso],
+    ['Rendimiento:', data.rendimiento],
     ['Ancho:', data.ancho],
-  ]
+    ['Usos:', data.usos],
+  ].filter(([, value]) => value)
 
   doc.setFontSize(11)
   const labelX = marginX
   const valueX = marginX + 34
+  const rowGap = rows.length > 7 ? 10 : 11
   for (const [label, value] of rows) {
     doc.setTextColor(MUTED)
     doc.text(label, labelX, y)
     doc.setTextColor(INK)
     doc.text(String(value), valueX, y)
-    y += 11
+    y += rowGap
   }
-  y += 16
+  y += 10
+
+  // Especificaciones de lavado (opcional), como párrafo bajo la tabla.
+  if (data.lavado) {
+    const lavadoLines = doc.splitTextToSize(
+      `Especificaciones de lavado: ${data.lavado}`,
+      pageWidth - marginX * 2
+    )
+    doc.setTextColor(INK)
+    doc.text(lavadoLines, marginX, y)
+    y += lavadoLines.length * 6.5 + 6
+  }
+  y += 6
 
   doc.setTextColor(INK)
   doc.text('Quedamos a la espera de su requerimiento.', marginX, y)
