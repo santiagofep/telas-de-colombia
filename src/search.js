@@ -11,7 +11,7 @@ const EXTRA_KEYWORDS = {
   Franela: 'pijama camiseta abrigo suave invierno',
   Gabardina: 'pantalon chaqueta uniforme formal saco',
   Hogar: 'sabana cortina mantel decoracion cojin funda genero linea cobija paño lency toalla algodon siliconado almohada dulceabrigo pañal microfibra limpion camiseta punto satin raya blanco teñido 144 hilos poliester',
-  Índigo: 'jean denim mezclilla moda urbana',
+  Índigo: 'jean denim mezclilla moda urbana no wash sin lavanderia dotacion',
   Lona: 'carpa toldo bolso tapiceria impermeable industrial lienzo sublimar calima sheeting coraza cruda blanco',
   Moda: 'tendencia coleccion temporada diseño',
   'No tejido': 'empaque filtro tecnico mascarilla desechable',

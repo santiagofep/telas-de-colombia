@@ -116,7 +116,7 @@ function formatFechaHoy() {
 }
 
 // data: { tela, origen, tejido, acabado, composicion, peso, ancho }
-// Opcionales: { hilos, rendimiento, encogimiento, usos, lavado }
+// Opcionales: { hilos, rendimiento, encogimiento, usos, lavado, agregado }
 export async function descargarFichaTecnica(data) {
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
   const pageWidth = doc.internal.pageSize.getWidth()
@@ -216,6 +216,16 @@ export async function descargarFichaTecnica(data) {
     doc.setTextColor(INK)
     doc.text(lavadoLines, marginX, y)
     y += lavadoLines.length * 6.5 + 6
+  }
+  // Valor agregado (opcional), mismo formato que el lavado.
+  if (data.agregado) {
+    const agregadoLines = doc.splitTextToSize(
+      `Valor agregado: ${data.agregado}`,
+      pageWidth - marginX * 2
+    )
+    doc.setTextColor(INK)
+    doc.text(agregadoLines, marginX, y)
+    y += agregadoLines.length * 6.5 + 6
   }
   y += 6
 
