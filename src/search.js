@@ -16,7 +16,7 @@ const EXTRA_KEYWORDS = {
   Moda: 'tendencia coleccion temporada diseño',
   'No tejido': 'empaque filtro tecnico mascarilla desechable',
   Oxford: 'camisa dotacion empresarial formal oficina',
-  Peletería: 'piel pelo invierno abrigo sintetico peluche',
+  Peletería: 'piel pelo invierno abrigo sintetico peluche lince gorra gorras forro mueble muebles tapiceria',
   Piqué: 'polo deportivo uniforme camiseta',
   Poncho: 'ruana abrigo frio capa',
   Popelina: 'camisa formal fina plana',

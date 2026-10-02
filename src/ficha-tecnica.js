@@ -116,7 +116,7 @@ function formatFechaHoy() {
 }
 
 // data: { tela, origen, tejido, acabado, composicion, peso, ancho }
-// Opcionales: { hilos, rendimiento, encogimiento, usos, lavado, agregado }
+// Opcionales: { hilos, espesor, rendimiento, encogimiento, usos, lavado, agregado }
 export async function descargarFichaTecnica(data) {
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
   const pageWidth = doc.internal.pageSize.getWidth()
@@ -187,6 +187,7 @@ export async function descargarFichaTecnica(data) {
     ['Acabado:', data.acabado],
     ['Composición:', data.composicion],
     ['Hilos:', data.hilos],
+    ['Espesor:', data.espesor],
     ['Peso:', data.peso],
     ['Rendimiento:', data.rendimiento],
     ['Ancho:', data.ancho],
