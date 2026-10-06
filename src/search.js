@@ -14,7 +14,7 @@ const EXTRA_KEYWORDS = {
   Índigo: 'jean denim mezclilla moda urbana no wash sin lavanderia dotacion',
   Lona: 'carpa toldo bolso tapiceria impermeable industrial lienzo sublimar calima sheeting coraza cruda blanco',
   Moda: 'tendencia coleccion temporada diseño',
-  'No tejido': 'empaque filtro tecnico mascarilla desechable',
+  'No tejido': 'empaque filtro tecnico mascarilla desechable guata relleno acolchado bondeo alma',
   Oxford: 'camisa dotacion empresarial formal oficina',
   Peletería: 'piel pelo invierno abrigo sintetico peluche lince gorra gorras forro mueble muebles tapiceria zapato zapatos calzado',
   Piqué: 'polo deportivo uniforme camiseta',
