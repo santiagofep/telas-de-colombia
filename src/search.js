@@ -8,7 +8,7 @@ const EXTRA_KEYWORDS = {
   Burda: 'forro empaque economica base perchada abrigo invierno frio peluche',
   Dril: 'uniforme dotacion trabajo pesado industrial pantalon overol vulcano galeon orion camila diamante bpt peach jean licrado elastano licra comodo movimiento everest balsato santana monserrat',
   Entretela: 'cuello puño refuerzo camisa estructura',
-  Franela: 'pijama camiseta abrigo suave invierno',
+  Franela: 'pijama camiseta abrigo suave invierno tela fria punto algodon spandex blusa',
   Gabardina: 'pantalon chaqueta uniforme formal saco',
   Hogar: 'sabana cortina mantel decoracion cojin funda genero linea cobija paño lency toalla algodon siliconado almohada dulceabrigo pañal microfibra limpion camiseta punto satin raya blanco teñido 144 hilos poliester',
   Índigo: 'jean denim mezclilla moda urbana no wash sin lavanderia dotacion',

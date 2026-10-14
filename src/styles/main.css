@@ -886,6 +886,31 @@ summary {
   justify-self: end;
 }
 
+/* Variante para telas con muchos colores identificados solo por código. */
+.color-swatches--codes {
+  grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+  column-gap: 8px;
+  row-gap: 12px;
+}
+
+.color-swatches--codes .color-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.color-swatches--codes .color-chip .dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.color-swatches--codes .color-chip .code {
+  justify-self: auto;
+  font-size: 11px;
+}
+
 /* ============================================================
    Por qué comprarnos
    ============================================================ */
