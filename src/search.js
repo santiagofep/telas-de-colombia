@@ -17,7 +17,7 @@ const EXTRA_KEYWORDS = {
   'No tejido': 'empaque filtro tecnico mascarilla desechable guata relleno acolchado bondeo alma',
   Oxford: 'camisa dotacion empresarial formal oficina',
   Peletería: 'piel pelo invierno abrigo sintetico peluche lince gorra gorras forro mueble muebles tapiceria zapato zapatos calzado',
-  Piqué: 'polo deportivo uniforme camiseta',
+  Piqué: 'polo deportivo uniforme camiseta loto poliester',
   Poncho: 'ruana abrigo frio capa',
   Popelina: 'camisa formal fina plana',
   Rib: 'cuello puño deportivo elastico',
