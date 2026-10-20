@@ -4,6 +4,7 @@ import { wireFichaTecnicaButtons } from './ficha-tecnica.js'
 import { wireTelaSearch } from './search.js'
 import { wireMobileNav } from './nav.js'
 import { wireReadMore } from './read-more.js'
+import { wireQuiz } from './quiz.js'
 
 // --- Tracking -------------------------------------------------
 // Los pixeles solo se cargan si los IDs placeholder fueron
@@ -97,10 +98,11 @@ function track(name, label) {
 function initTracking() {
   loadMetaPixel()
   loadGoogleAds()
-  document.querySelectorAll('[data-track="whatsapp"]').forEach((el) => {
-    el.addEventListener('click', () => {
-      track(el.dataset.trackEvent || 'Contact', el.dataset.trackLabel || 'whatsapp')
-    })
+  // Delegado en el documento para cubrir también los enlaces creados después
+  // de cargar la página (por ejemplo, el resultado del test).
+  document.addEventListener('click', (event) => {
+    const el = event.target.closest('[data-track="whatsapp"]')
+    if (el) track(el.dataset.trackEvent || 'Contact', el.dataset.trackLabel || 'whatsapp')
   })
 }
 
@@ -110,4 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
   wireTelaSearch()
   wireMobileNav()
   wireReadMore()
+  wireQuiz()
 })

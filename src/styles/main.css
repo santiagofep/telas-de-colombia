@@ -1492,3 +1492,278 @@ summary {
     padding-right: 16px;
   }
 }
+
+/* ============================================================
+   Test "¿Qué tela necesitas?"
+   ============================================================ */
+.tela-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.quiz-launch {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+}
+
+.quiz-launch strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.quiz-launch:hover strong {
+  text-decoration: underline;
+}
+
+.quiz {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 24px 64px rgba(25, 21, 39, 0.28);
+}
+
+.quiz::backdrop {
+  background: rgba(25, 21, 39, 0.55);
+}
+
+.quiz-body {
+  padding: 36px 32px 32px;
+}
+
+.quiz-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.quiz-close:hover {
+  background: var(--ph1);
+  color: var(--ink);
+}
+
+.quiz-eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.quiz h2 {
+  margin: 0 0 20px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.quiz-lead {
+  margin: -8px 0 24px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--body);
+}
+
+.quiz .btn-primary,
+.quiz-invite .btn-primary {
+  border: 0;
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.quiz-progress {
+  height: 4px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--ph1);
+  overflow: hidden;
+}
+
+.quiz-progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 8px;
+}
+
+.quiz-option {
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.quiz-option:hover,
+.quiz-option:focus-visible {
+  border-color: var(--accent);
+  background: var(--bg);
+  outline: none;
+}
+
+.quiz-nav {
+  margin-top: 16px;
+}
+
+.quiz-back {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.quiz-back:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+.quiz-results {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+  counter-reset: quiz;
+}
+
+.quiz-results li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  counter-increment: quiz;
+}
+
+.quiz-results li::before {
+  content: counter(quiz);
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 14px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+}
+
+.quiz-results li > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.quiz-results strong {
+  font-size: 16px;
+}
+
+.quiz-results p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.quiz-result-link {
+  flex: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.quiz-note {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: var(--body);
+}
+
+.quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 20px;
+}
+
+.quiz-invite {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 88px;
+  z-index: 60;
+  padding: 18px 44px 18px 18px;
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 12px 40px rgba(25, 21, 39, 0.22);
+}
+
+.quiz-invite p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--body);
+}
+
+.quiz-invite strong {
+  color: var(--ink);
+}
+
+.quiz-invite .btn-primary {
+  padding: 11px 20px;
+  font-size: 14px;
+}
+
+.quiz-invite .quiz-close {
+  top: 6px;
+  right: 6px;
+}
+
+@media (max-width: 640px) {
+  .quiz-body {
+    padding: 32px 20px 24px;
+  }
+
+  .quiz h2 {
+    font-size: 22px;
+  }
+
+  .quiz-results li {
+    flex-wrap: wrap;
+  }
+}
