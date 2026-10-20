@@ -1,7 +1,8 @@
 // Telas de Colombia — test "¿Qué tela necesitas?".
-// 4 preguntas que suman puntos a cada categoría de tela; al final se
-// recomiendan las 3 con más puntos, con enlace a su página y un WhatsApp
-// que ya lleva las respuestas.
+// 4 preguntas: qué producto vas a hacer, qué priorizas, si necesitas algo
+// especial y cuántas unidades. Las respuestas suman puntos a cada categoría
+// de tela; se recomiendan las 3 con más puntos y, con el consumo promedio del
+// producto y el ancho típico de cada tela, se estiman los metros necesarios.
 //
 // En el inicio se ofrece solo una vez: en computador se abre como ventana
 // unos segundos después de entrar; en celular aparece primero una invitación
@@ -11,46 +12,54 @@ const WHATSAPP = '573186262626'
 const STORAGE_KEY = 'quizOfrecido'
 const REOFFER_DAYS = 7
 const OPEN_DELAY_MS = 4000
+const ANCHO_REFERENCIA = 150 // cm: los consumos de PRODUCTOS están medidos a este ancho
+const METROS_MAYORISTA = 15
 
+// ancho: ancho típico (cm) de las referencias de cada categoría.
 const TELAS = {
-  dril: { nombre: 'Dril', url: '/dril.html', por: 'Resistente y durable, el clásico de la dotación. Rígido o licrado.' },
-  indigo: { nombre: 'Índigo (denim)', url: '/indigo.html', por: 'La base de los jeans. Incluye Índigo No Wash, que no necesita lavandería.' },
-  gabardina: { nombre: 'Gabardina', url: '/gabardina.html', por: 'Sarga resistente con buena caída para pantalones y uniformes.' },
-  twill: { nombre: 'Twill', url: '/twill.html', por: 'Tejido diagonal resistente para pantalones y chaquetas.' },
-  'rib-stop': { nombre: 'Rib stop', url: '/rib-stop.html', por: 'No se rasga fácil: ideal para trabajo pesado y outdoor.' },
-  oxford: { nombre: 'Oxford', url: '/oxford.html', por: 'Camisas de dotación empresarial, de fácil cuidado.' },
-  popelina: { nombre: 'Popelina', url: '/popelina.html', por: 'Fina y fresca, clásica de la camisería.' },
-  pique: { nombre: 'Piqué', url: '/pique.html', por: 'Fresco y transpirable, el de las camisetas tipo polo.' },
-  franela: { nombre: 'Franela y tela fría', url: '/franela.html', por: 'Suave y cómoda: pijamas, camisetas y ropa casual.' },
-  rib: { nombre: 'Rib', url: '/rib.html', por: 'Punto elástico para cuellos, puños y ropa deportiva.' },
-  antifluidos: { nombre: 'Antifluidos', url: '/antifluidos.html', por: 'Repele líquidos: uniformes médicos y de laboratorio.' },
-  'no-tejido': { nombre: 'No tejido y guata', url: '/no-tejido.html', por: 'Para salud, empaques, relleno y refuerzos.' },
-  entretela: { nombre: 'Entretela', url: '/entretela.html', por: 'Da estructura a cuellos, puños y bolsos.' },
-  lona: { nombre: 'Lona', url: '/lona.html', por: 'Muy resistente: bolsos, carpas, toldos, tapicería y sublimación.' },
-  peleteria: { nombre: 'Peletería', url: '/peleteria.html', por: 'Imitación de piel para gorras, zapatos, forros y abrigo.' },
-  burda: { nombre: 'Burda', url: '/burda.html', por: 'Gruesa y rústica, con estilo artesanal.' },
-  poncho: { nombre: 'Poncho', url: '/poncho.html', por: 'Gruesa y abrigada, para ponchos y ruanas.' },
-  hogar: { nombre: 'Telas para hogar', url: '/hogar.html', por: 'Sábanas, toallas, cobijas y textiles para la casa.' },
-  moda: { nombre: 'Moda', url: '/moda.html', por: 'Telas de tendencia para colecciones de temporada.' },
+  dril: { nombre: 'Dril', url: '/dril.html', ancho: 160, por: 'Resistente y durable, el clásico de la dotación. Rígido o licrado.' },
+  indigo: { nombre: 'Índigo (denim)', url: '/indigo.html', ancho: 170, por: 'La base de los jeans. Incluye Índigo No Wash, que no necesita lavandería.' },
+  gabardina: { nombre: 'Gabardina', url: '/gabardina.html', ancho: 150, por: 'Sarga resistente con buena caída para pantalones y uniformes.' },
+  twill: { nombre: 'Twill', url: '/twill.html', ancho: 150, por: 'Tejido diagonal resistente para pantalones y chaquetas.' },
+  'rib-stop': { nombre: 'Rib stop', url: '/rib-stop.html', ancho: 150, por: 'No se rasga fácil: ideal para trabajo pesado y outdoor.' },
+  oxford: { nombre: 'Oxford', url: '/oxford.html', ancho: 150, por: 'Camisas de dotación empresarial, de fácil cuidado.' },
+  popelina: { nombre: 'Popelina', url: '/popelina.html', ancho: 150, por: 'Fina y fresca, clásica de la camisería.' },
+  pique: { nombre: 'Piqué', url: '/pique.html', ancho: 180, por: 'Fresco y transpirable, el de las camisetas tipo polo.' },
+  franela: { nombre: 'Franela y tela fría', url: '/franela.html', ancho: 160, por: 'Suave y cómoda: pijamas, camisetas y ropa casual.' },
+  rib: { nombre: 'Rib', url: '/rib.html', ancho: 150, por: 'Punto elástico para cuellos, puños y ropa deportiva.' },
+  antifluidos: { nombre: 'Antifluidos', url: '/antifluidos.html', ancho: 150, por: 'Repele líquidos: uniformes médicos y de laboratorio.' },
+  'no-tejido': { nombre: 'No tejido y guata', url: '/no-tejido.html', ancho: 150, por: 'Para salud, empaques, relleno y refuerzos.' },
+  entretela: { nombre: 'Entretela', url: '/entretela.html', ancho: 150, por: 'Da estructura a cuellos, puños y bolsos.' },
+  lona: { nombre: 'Lona', url: '/lona.html', ancho: 160, por: 'Muy resistente: bolsos, gorras, carpas, tapicería y sublimación.' },
+  peleteria: { nombre: 'Peletería', url: '/peleteria.html', ancho: 140, por: 'Imitación de piel (Lince) para gorras, zapatos, forros y abrigo.' },
+  burda: { nombre: 'Burda', url: '/burda.html', ancho: 150, por: 'Gruesa y rústica, con estilo artesanal.' },
+  poncho: { nombre: 'Poncho', url: '/poncho.html', ancho: 120, por: 'Gruesa y abrigada, para ponchos y ruanas.' },
+  hogar: { nombre: 'Telas para hogar', url: '/hogar.html', ancho: 150, por: 'Sábanas, toallas, cobijas y textiles para la casa.' },
+  moda: { nombre: 'Moda', url: '/moda.html', ancho: 150, por: 'Telas de tendencia para colecciones de temporada.' },
 }
 
-// Cada opción suma puntos a las categorías de TELAS.
+// consumo: metros por unidad en tela de ANCHO_REFERENCIA (talla M adulto,
+// promedio de confección). fijo: el consumo no depende del ancho de la tela
+// recomendada (ya está medido en la tela que se usa para ese producto).
+const PRODUCTOS = [
+  { label: 'Camisetas', unidad: 'camisetas', consumo: 0.7, puntos: { franela: 3, pique: 2, rib: 1 } },
+  { label: 'Camisetas tipo polo', unidad: 'polos', consumo: 0.8, puntos: { pique: 4, rib: 1 } },
+  { label: 'Camisas o blusas', unidad: 'camisas', consumo: 1.5, puntos: { popelina: 4, oxford: 3, moda: 1 } },
+  { label: 'Pantalones o jeans', unidad: 'pantalones', consumo: 1.5, puntos: { indigo: 4, gabardina: 2, twill: 2, dril: 2 } },
+  { label: 'Uniformes de trabajo (camisa + pantalón)', unidad: 'uniformes', consumo: 3.0, puntos: { dril: 4, oxford: 2, 'rib-stop': 2, gabardina: 1 } },
+  { label: 'Uniformes médicos (blusa + pantalón)', unidad: 'uniformes', consumo: 2.6, puntos: { antifluidos: 5, 'no-tejido': 1 } },
+  { label: 'Pijamas o sudaderas (conjunto)', unidad: 'conjuntos', consumo: 2.2, puntos: { franela: 4, rib: 1 } },
+  { label: 'Chaquetas o ropa de abrigo', unidad: 'chaquetas', consumo: 2.0, puntos: { peleteria: 2, poncho: 2, burda: 2, gabardina: 1, franela: 1 } },
+  { label: 'Gorras', unidad: 'gorras', consumo: 0.15, puntos: { peleteria: 3, lona: 2, dril: 2, gabardina: 1 } },
+  { label: 'Bolsos o morrales', unidad: 'bolsos', consumo: 0.5, puntos: { lona: 4, burda: 1 } },
+  { label: 'Juegos de sábanas (doble)', unidad: 'juegos de sábanas', consumo: 5.5, fijo: 'en género de 2,60 m de ancho', puntos: { hogar: 6 } },
+  { label: 'Toallas de cuerpo', unidad: 'toallas', consumo: 0.7, fijo: 'en toalla de 1,50 m de ancho', puntos: { hogar: 6 } },
+  { label: 'Cojines (funda de 45 × 45 cm)', unidad: 'cojines', consumo: 0.25, puntos: { lona: 2, peleteria: 2, burda: 2 } },
+  { label: 'Rellenos o refuerzos para prendas', unidad: 'prendas', consumo: 0.3, puntos: { entretela: 3, 'no-tejido': 3 } },
+]
+
 const PREGUNTAS = [
-  {
-    id: 'uso',
-    titulo: '¿Qué vas a confeccionar?',
-    opciones: [
-      { label: 'Uniformes o dotación de trabajo', puntos: { dril: 4, oxford: 2, gabardina: 2, 'rib-stop': 2, twill: 1 } },
-      { label: 'Jeans o pantalones', puntos: { indigo: 4, gabardina: 2, twill: 2, dril: 1 } },
-      { label: 'Camisetas, polos o ropa deportiva', puntos: { pique: 4, franela: 2, rib: 2 } },
-      { label: 'Camisas o blusas', puntos: { popelina: 4, oxford: 3, moda: 1 } },
-      { label: 'Ropa de abrigo o pijamas', puntos: { franela: 4, peleteria: 2, poncho: 2, burda: 1 } },
-      { label: 'Uniformes médicos o de salud', puntos: { antifluidos: 5, 'no-tejido': 2 } },
-      { label: 'Sábanas, toallas o cosas para el hogar', puntos: { hogar: 6 } },
-      { label: 'Bolsos, gorras, carpas o tapicería', puntos: { lona: 4, peleteria: 2, burda: 1 } },
-      { label: 'Rellenos, forros o refuerzos', puntos: { entretela: 3, 'no-tejido': 3, burda: 1 } },
-    ],
-  },
+  { id: 'producto', titulo: '¿Qué vas a hacer?', opciones: PRODUCTOS, columnas: true },
   {
     id: 'prioridad',
     titulo: '¿Qué es lo más importante en tu tela?',
@@ -73,16 +82,7 @@ const PREGUNTAS = [
       { label: 'Ninguna en especial', puntos: {} },
     ],
   },
-  {
-    id: 'cantidad',
-    titulo: '¿Cuánta tela necesitas?',
-    opciones: [
-      { label: 'Poca: de 1 a 5 metros', puntos: {} },
-      { label: 'Media: de 6 a 15 metros', puntos: {} },
-      { label: 'Mucha: más de 15 metros o rollos', puntos: {} },
-      { label: 'Un paquete completo de dotación', puntos: {} },
-    ],
-  },
+  { id: 'unidades', titulo: '¿Cuántas unidades vas a hacer?', tipo: 'numero' },
 ]
 
 function storageGet() {
@@ -116,9 +116,11 @@ function el(tag, attrs = {}, children = []) {
   return node
 }
 
-function recomendar(respuestas) {
+const formatoMetros = (m) => (m < 10 ? m.toFixed(1).replace('.', ',') : String(Math.ceil(m)))
+
+function recomendar(opciones) {
   const puntos = {}
-  respuestas.forEach((opcion) => {
+  opciones.forEach((opcion) => {
     for (const [tela, p] of Object.entries(opcion.puntos)) puntos[tela] = (puntos[tela] || 0) + p
   })
   return Object.entries(puntos)
@@ -128,15 +130,25 @@ function recomendar(respuestas) {
     .map(([key]) => TELAS[key])
 }
 
-function whatsappUrl(respuestas, telas) {
-  const [uso, prioridad, especial, cantidad] = respuestas.map((r) => r.label.toLowerCase())
+// Metros estimados de una tela para N unidades del producto.
+function metros(producto, tela, unidades) {
+  if (!unidades) return null
+  const factor = producto.fijo ? 1 : ANCHO_REFERENCIA / tela.ancho
+  return unidades * producto.consumo * factor
+}
+
+function whatsappUrl({ producto, prioridad, especial, unidades }, telas) {
   const lineas = [
     'Hola, hice el test de la página web.',
-    `Voy a confeccionar: ${uso}.`,
-    `Lo más importante: ${prioridad}.`,
-    especial.startsWith('ninguna') ? null : `Necesito: ${especial}.`,
-    `Cantidad: ${cantidad}.`,
-    `Me recomendó: ${telas.map((t) => t.nombre).join(', ')}.`,
+    unidades ? `Voy a hacer ${unidades} ${producto.unidad}.` : `Voy a hacer: ${producto.label.toLowerCase()}.`,
+    `Lo más importante: ${prioridad.label.toLowerCase()}.`,
+    especial.label.startsWith('Ninguna') ? null : `Necesito: ${especial.label.toLowerCase()}.`,
+    `Me recomendó: ${telas
+      .map((t) => {
+        const m = metros(producto, t, unidades)
+        return m ? `${t.nombre} (aprox. ${formatoMetros(m)} m)` : t.nombre
+      })
+      .join(', ')}.`,
     '¿Me pueden asesorar?',
   ].filter(Boolean)
   return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(lineas.join('\n'))}`
@@ -156,38 +168,84 @@ function buildDialog() {
   document.body.appendChild(dialog)
 
   let paso = 0
-  let respuestas = []
+  let respuestas = {}
+
+  function avanzar() {
+    paso += 1
+    if (paso < PREGUNTAS.length) renderPregunta()
+    else renderResultado()
+  }
 
   function renderIntro() {
+    const start = el('button', { type: 'button', class: 'btn-primary quiz-start', text: 'Empezar el test →' })
+    start.addEventListener('click', () => {
+      paso = 0
+      respuestas = {}
+      renderPregunta()
+    })
     body.replaceChildren(
       el('p', { class: 'quiz-eyebrow', text: 'Test de 4 preguntas' }),
       el('h2', { id: 'quiz-title', text: '¿Qué tela necesitas?' }),
-      el('p', { class: 'quiz-lead', text: 'Responde 4 preguntas rápidas y te recomendamos las telas que mejor se ajustan a tu proyecto.' }),
-      (() => {
-        const start = el('button', { type: 'button', class: 'btn-primary quiz-start', text: 'Empezar el test →' })
-        start.addEventListener('click', () => {
-          paso = 0
-          respuestas = []
-          renderPregunta()
-        })
-        return start
-      })()
+      el('p', { class: 'quiz-lead', text: 'Cuéntanos qué vas a hacer y cuántas unidades: te recomendamos las telas que mejor se ajustan y cuántos metros vas a necesitar.' }),
+      start
     )
+  }
+
+  function renderOpciones(pregunta) {
+    const opciones = el('div', { class: pregunta.columnas ? 'quiz-options quiz-options--cols' : 'quiz-options' })
+    pregunta.opciones.forEach((opcion) => {
+      const b = el('button', { type: 'button', class: 'quiz-option', text: opcion.label })
+      b.addEventListener('click', () => {
+        respuestas[pregunta.id] = opcion
+        avanzar()
+      })
+      opciones.appendChild(b)
+    })
+    return opciones
+  }
+
+  function renderNumero() {
+    const producto = respuestas.producto
+    const input = el('input', {
+      type: 'number',
+      class: 'quiz-input',
+      min: '1',
+      step: '1',
+      inputmode: 'numeric',
+      placeholder: 'Ej: 50',
+      'aria-label': `Número de ${producto.unidad}`,
+    })
+    if (respuestas.unidades) input.value = respuestas.unidades
+    const submit = el('button', { type: 'submit', class: 'btn-primary', text: 'Ver mi recomendación →' })
+    const form = el('form', { class: 'quiz-number' }, [
+      el('div', { class: 'quiz-number-row' }, [input, el('span', { text: producto.unidad })]),
+      submit,
+    ])
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+      const n = Math.floor(Number(input.value))
+      if (!n || n < 1) {
+        input.focus()
+        input.setCustomValidity('Escribe cuántas unidades vas a hacer')
+        input.reportValidity()
+        return
+      }
+      respuestas.unidades = n
+      avanzar()
+    })
+    input.addEventListener('input', () => input.setCustomValidity(''))
+
+    const skip = el('button', { type: 'button', class: 'quiz-back', text: 'Todavía no sé cuántas' })
+    skip.addEventListener('click', () => {
+      respuestas.unidades = null
+      avanzar()
+    })
+    return [form, el('div', { class: 'quiz-skip' }, [skip])]
   }
 
   function renderPregunta() {
     const pregunta = PREGUNTAS[paso]
-    const opciones = el('div', { class: 'quiz-options' })
-    pregunta.opciones.forEach((opcion) => {
-      const b = el('button', { type: 'button', class: 'quiz-option', text: opcion.label })
-      b.addEventListener('click', () => {
-        respuestas[paso] = opcion
-        paso += 1
-        if (paso < PREGUNTAS.length) renderPregunta()
-        else renderResultado()
-      })
-      opciones.appendChild(b)
-    })
+    const contenido = pregunta.tipo === 'numero' ? renderNumero() : [renderOpciones(pregunta)]
 
     const nav = el('div', { class: 'quiz-nav' })
     if (paso > 0) {
@@ -207,30 +265,37 @@ function buildDialog() {
       el('p', { class: 'quiz-eyebrow', text: `Pregunta ${paso + 1} de ${PREGUNTAS.length}` }),
       progreso,
       el('h2', { id: 'quiz-title', text: pregunta.titulo }),
-      opciones,
+      ...contenido,
       nav
     )
-    opciones.querySelector('button').focus()
+    body.querySelector('input, .quiz-option')?.focus()
   }
 
   function renderResultado() {
-    const telas = recomendar(respuestas)
-    const cantidad = respuestas[3].label
+    const { producto, prioridad, especial, unidades } = respuestas
+    const telas = recomendar([producto, prioridad, especial])
+
     const lista = el('ol', { class: 'quiz-results' })
+    let maxMetros = 0
     telas.forEach((tela) => {
-      lista.appendChild(
-        el('li', {}, [
-          el('div', {}, [el('strong', { text: tela.nombre }), el('p', { text: tela.por })]),
-          el('a', { href: tela.url, class: 'quiz-result-link', text: 'Ver tela →' }),
-        ])
-      )
+      const m = metros(producto, tela, unidades)
+      if (m) maxMetros = Math.max(maxMetros, m)
+      const info = el('div', {}, [el('strong', { text: tela.nombre }), el('p', { text: tela.por })])
+      if (m) {
+        const ancho = producto.fijo ? producto.fijo : `en tela de ${tela.ancho} cm de ancho`
+        info.appendChild(el('p', { class: 'quiz-metros', text: `≈ ${formatoMetros(m)} m ${ancho}` }))
+      }
+      lista.appendChild(el('li', {}, [info, el('a', { href: tela.url, class: 'quiz-result-link', text: 'Ver tela →' })]))
     })
 
-    const nota = cantidad.startsWith('Un paquete')
-      ? 'Para un paquete completo de dotación te asesoramos con la tela, la confección y las prendas.'
-      : cantidad.startsWith('Mucha')
-        ? 'Por más de 15 metros o rollos completos manejamos precio de mayorista.'
-        : 'Te confirmamos precio, colores y disponibilidad por WhatsApp.'
+    const resumen = unidades
+      ? `Para ${unidades} ${producto.unidad} calculamos estos metros aproximados:`
+      : 'Cuando sepas cuántas unidades vas a hacer, te calculamos los metros por WhatsApp.'
+
+    const notas = []
+    if (unidades) notas.push('Es un cálculo promedio para talla M; cambia según las tallas, el molde y el trazo. Te lo confirmamos por WhatsApp.')
+    if (maxMetros > METROS_MAYORISTA) notas.push('Por más de 15 metros o rollos completos manejamos precio de mayorista.')
+    if (/uniformes/.test(producto.unidad) && unidades >= 20) notas.push('Para dotaciones también te ofrecemos el paquete completo: tela, confección y prendas listas.')
 
     const wa = el('a', {
       class: 'btn-primary',
@@ -241,7 +306,7 @@ function buildDialog() {
       'data-track-label': 'quiz-resultado',
       text: 'Pedir asesoría por WhatsApp →',
     })
-    if (cantidad.startsWith('Mucha') || cantidad.startsWith('Un paquete')) wa.setAttribute('data-track-event', 'Lead')
+    if (maxMetros > METROS_MAYORISTA) wa.setAttribute('data-track-event', 'Lead')
 
     const again = el('button', { type: 'button', class: 'quiz-back', text: 'Volver a hacer el test' })
     again.addEventListener('click', renderIntro)
@@ -249,8 +314,9 @@ function buildDialog() {
     body.replaceChildren(
       el('p', { class: 'quiz-eyebrow', text: 'Tu recomendación' }),
       el('h2', { id: 'quiz-title', text: 'Estas telas te pueden servir' }),
+      el('p', { class: 'quiz-summary', text: resumen }),
       lista,
-      el('p', { class: 'quiz-note', text: nota }),
+      ...notas.map((t) => el('p', { class: 'quiz-note', text: t })),
       el('div', { class: 'quiz-actions' }, [wa, again])
     )
   }
@@ -267,7 +333,7 @@ function buildDialog() {
 function showInvite(quiz) {
   storageMarkOffered()
   const invite = el('div', { class: 'quiz-invite', role: 'dialog', 'aria-label': 'Test para elegir tela' })
-  const text = el('p', {}, [el('strong', { text: '¿No sabes qué tela elegir?' }), document.createTextNode(' Responde 4 preguntas y te recomendamos una.')])
+  const text = el('p', {}, [el('strong', { text: '¿No sabes qué tela elegir?' }), document.createTextNode(' Responde 4 preguntas y te decimos cuál y cuántos metros necesitas.')])
   const go = el('button', { type: 'button', class: 'btn-primary', text: 'Hacer el test' })
   const dismiss = el('button', { type: 'button', class: 'quiz-close', 'aria-label': 'Cerrar' })
   dismiss.innerHTML = '&times;'
