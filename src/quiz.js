@@ -240,7 +240,11 @@ function buildDialog() {
       respuestas.unidades = null
       avanzar()
     })
-    return [form, el('div', { class: 'quiz-skip' }, [skip])]
+    const hint = el('p', {
+      class: 'quiz-hint',
+      text: 'Con esto te damos un cálculo aproximado de metros; siempre conviene confirmarlo con tu muestra o tu cortador.',
+    })
+    return [form, hint, el('div', { class: 'quiz-skip' }, [skip])]
   }
 
   function renderPregunta() {
@@ -289,11 +293,19 @@ function buildDialog() {
     })
 
     const resumen = unidades
-      ? `Para ${unidades} ${producto.unidad} calculamos estos metros aproximados:`
+      ? `Para ${unidades} ${producto.unidad}, estos serían los metros aproximados:`
       : 'Cuando sepas cuántas unidades vas a hacer, te calculamos los metros por WhatsApp.'
 
+    const aviso = unidades
+      ? el('div', { class: 'quiz-disclaimer', role: 'note' }, [
+          el('strong', { text: 'Cálculo aproximado' }),
+          el('p', {
+            text: 'Estos metros salen de consumos promedio por prenda (talla M) y son solo una guía. Antes de comprar, verifícalos siempre con el consumo real de tu muestra o con tu cortador de confianza: cambian según las tallas, el molde, el trazo y si la tela tiene dirección o estampado. Te recomendamos sumar un margen de 5 a 10 %.',
+          }),
+        ])
+      : null
+
     const notas = []
-    if (unidades) notas.push('Es un cálculo promedio para talla M; cambia según las tallas, el molde y el trazo. Te lo confirmamos por WhatsApp.')
     if (maxMetros > METROS_MAYORISTA) notas.push('Por más de 15 metros o rollos completos manejamos precio de mayorista.')
     if (/uniformes/.test(producto.unidad) && unidades >= 20) notas.push('Para dotaciones también te ofrecemos el paquete completo: tela, confección y prendas listas.')
 
@@ -316,6 +328,7 @@ function buildDialog() {
       el('h2', { id: 'quiz-title', text: 'Estas telas te pueden servir' }),
       el('p', { class: 'quiz-summary', text: resumen }),
       lista,
+      ...(aviso ? [aviso] : []),
       ...notas.map((t) => el('p', { class: 'quiz-note', text: t })),
       el('div', { class: 'quiz-actions' }, [wa, again])
     )
