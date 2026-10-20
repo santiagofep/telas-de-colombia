@@ -130,6 +130,39 @@ function recomendar(opciones) {
     .map(([key]) => TELAS[key])
 }
 
+// Precios: se leen de la página de cada tela (tarjetas con .price-tier), así
+// no hay que copiarlos aquí y siempre coinciden con lo publicado.
+const preciosCache = {}
+
+function cargarPrecios(url) {
+  if (!preciosCache[url]) {
+    preciosCache[url] = fetch(url)
+      .then((r) => (r.ok ? r.text() : ''))
+      .then((html) => {
+        const doc = new DOMParser().parseFromString(html, 'text/html')
+        return [...doc.querySelectorAll('.tela-card')]
+          .map((card) => ({
+            nombre: card.querySelector('h3')?.textContent.trim(),
+            tramos: [...card.querySelectorAll('.price-tier .price')].map((p) => Number(p.textContent.replace(/\D/g, ''))),
+          }))
+          .filter((ref) => ref.nombre && ref.tramos.length === 3 && ref.tramos.every(Boolean))
+      })
+      .catch(() => [])
+  }
+  return preciosCache[url]
+}
+
+// Tramo de precio según los metros: 0,5 a 5 m · 6 a 15 m · más de 15 m.
+// Sin metros se usa el tramo más bajo (el precio "desde").
+const tramoPara = (m) => (m == null ? 2 : m <= 5 ? 0 : m <= 15 ? 1 : 2)
+
+function masEconomica(refs, m) {
+  const t = tramoPara(m)
+  return refs.reduce((best, ref) => (!best || ref.tramos[t] < best.precio ? { nombre: ref.nombre, precio: ref.tramos[t] } : best), null)
+}
+
+const formatoPesos = (n) => '$' + n.toLocaleString('es-CO')
+
 // Metros estimados de una tela para N unidades del producto.
 function metros(producto, tela, unidades) {
   if (!unidades) return null
@@ -137,16 +170,17 @@ function metros(producto, tela, unidades) {
   return unidades * producto.consumo * factor
 }
 
-function whatsappUrl({ producto, prioridad, especial, unidades }, telas) {
+function whatsappUrl({ producto, prioridad, especial, unidades }, telas, precios = []) {
   const lineas = [
     'Hola, hice el test de la página web.',
     unidades ? `Voy a hacer ${unidades} ${producto.unidad}.` : `Voy a hacer: ${producto.label.toLowerCase()}.`,
     `Lo más importante: ${prioridad.label.toLowerCase()}.`,
     especial.label.startsWith('Ninguna') ? null : `Necesito: ${especial.label.toLowerCase()}.`,
     `Me recomendó: ${telas
-      .map((t) => {
+      .map((t, i) => {
         const m = metros(producto, t, unidades)
-        return m ? `${t.nombre} (aprox. ${formatoMetros(m)} m)` : t.nombre
+        const extra = [m ? `aprox. ${formatoMetros(m)} m` : null, precios[i] ? `${precios[i].nombre} desde ${formatoPesos(precios[i].precio)}/m` : null].filter(Boolean)
+        return extra.length ? `${t.nombre} (${extra.join(', ')})` : t.nombre
       })
       .join(', ')}.`,
     '¿Me pueden asesorar?',
@@ -281,6 +315,7 @@ function buildDialog() {
 
     const lista = el('ol', { class: 'quiz-results' })
     let maxMetros = 0
+    const lineasPrecio = []
     telas.forEach((tela) => {
       const m = metros(producto, tela, unidades)
       if (m) maxMetros = Math.max(maxMetros, m)
@@ -289,6 +324,9 @@ function buildDialog() {
         const ancho = producto.fijo ? producto.fijo : `en tela de ${tela.ancho} cm de ancho`
         info.appendChild(el('p', { class: 'quiz-metros', text: `≈ ${formatoMetros(m)} m ${ancho}` }))
       }
+      const precio = el('p', { class: 'quiz-precio' })
+      info.appendChild(precio)
+      lineasPrecio.push(precio)
       lista.appendChild(el('li', {}, [info, el('a', { href: tela.url, class: 'quiz-result-link', text: 'Ver tela →' })]))
     })
 
@@ -322,6 +360,26 @@ function buildDialog() {
 
     const again = el('button', { type: 'button', class: 'quiz-back', text: 'Volver a hacer el test' })
     again.addEventListener('click', renderIntro)
+
+    // Precio "desde" con la referencia más económica de cada tela. El tramo
+    // depende de los metros estimados; sin unidades, el precio más bajo.
+    Promise.all(telas.map((t) => cargarPrecios(t.url))).then((porTela) => {
+      const mejores = porTela.map((refs, i) => (refs.length ? masEconomica(refs, metros(producto, telas[i], unidades)) : null))
+      mejores.forEach((mejor, i) => {
+        const p = lineasPrecio[i]
+        if (mejor) {
+          p.replaceChildren(
+            document.createTextNode('Desde '),
+            el('strong', { text: `${formatoPesos(mejor.precio)}/m` }),
+            document.createTextNode(` · Más económica: ${mejor.nombre}`)
+          )
+        } else {
+          p.textContent = 'Precio: te lo cotizamos por WhatsApp'
+          p.classList.add('quiz-precio--cotizar')
+        }
+      })
+      wa.href = whatsappUrl(respuestas, telas, mejores)
+    })
 
     body.replaceChildren(
       el('p', { class: 'quiz-eyebrow', text: 'Tu recomendación' }),

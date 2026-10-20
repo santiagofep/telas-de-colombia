@@ -1752,6 +1752,25 @@ summary {
   color: var(--body);
 }
 
+.quiz-results .quiz-precio {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--body);
+}
+
+.quiz-results .quiz-precio:empty {
+  display: none;
+}
+
+.quiz-results .quiz-precio strong {
+  font-size: 14px;
+  color: var(--accent);
+}
+
+.quiz-results .quiz-precio--cotizar {
+  color: var(--muted);
+}
+
 .quiz-hint {
   margin: 12px 0 0;
   font-size: 13px;
