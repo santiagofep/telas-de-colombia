@@ -1,6 +1,16 @@
-// Telas de Colombia — menú móvil (hamburguesa) del header.
+// Telas de Colombia — menú móvil (hamburguesa) del header y header fijo
+// que se compacta al bajar.
+
+function wireStickyHeader() {
+  const header = document.querySelector('.site-header')
+  if (!header) return
+  const update = () => header.classList.toggle('is-scrolled', window.scrollY > 8)
+  update()
+  window.addEventListener('scroll', update, { passive: true })
+}
 
 export function wireMobileNav() {
+  wireStickyHeader()
   const toggle = document.querySelector('.nav-toggle')
   const nav = document.getElementById('site-nav')
   if (!toggle || !nav) return

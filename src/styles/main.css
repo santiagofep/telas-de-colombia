@@ -38,6 +38,11 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Deja espacio para el menú fijo al saltar a una sección (#galeria, #mayoristas…). */
+  scroll-padding-top: 80px;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -74,12 +79,39 @@ summary {
    Header
    ============================================================ */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   padding: 26px 0;
   flex-wrap: wrap;
+  transition: padding 0.2s ease;
+  /* Fondo a todo el ancho de la pantalla aunque el header viva dentro de
+     .container: una sombra sin desenfoque recortada arriba y abajo. Las
+     sombras no agrandan la página, así que no aparece scroll horizontal. */
+  background: var(--bg);
+  box-shadow: 0 0 0 100vmax var(--bg);
+  clip-path: inset(0 -100vmax);
+}
+
+.site-header.is-scrolled {
+  padding: 12px 0;
+  /* Segunda sombra: línea de 1px a todo lo ancho debajo del header. */
+  box-shadow: 0 0 0 100vmax var(--bg), 0 1px 0 100vmax var(--line);
+  clip-path: inset(0 -100vmax -1px);
+}
+
+.brand-icon,
+.brand-wordmark {
+  transition: height 0.2s ease;
+}
+
+.site-header.is-scrolled .brand-icon,
+.site-header.is-scrolled .brand-wordmark {
+  height: 18px;
 }
 
 .brand {
@@ -128,6 +160,12 @@ summary {
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
+}
+
+/* Le gana a .site-nav > a, que lo dejaba gris sobre fondo oscuro. */
+.site-nav > a.btn-header,
+.site-nav > a.btn-header:hover {
+  color: #ffffff;
 }
 
 .nav-toggle {
@@ -1399,6 +1437,23 @@ summary {
   .brand-icon,
   .brand-wordmark {
     height: 28px;
+  }
+
+  /* En celular el menú desplegable cuelga debajo del header: sin recorte. */
+  .site-header,
+  .site-header.is-scrolled {
+    clip-path: none;
+    box-shadow: none;
+  }
+
+  .site-header.is-scrolled {
+    padding: 10px 0;
+    box-shadow: 0 1px 0 var(--line);
+  }
+
+  .site-header.is-scrolled .brand-icon,
+  .site-header.is-scrolled .brand-wordmark {
+    height: 24px;
   }
 
   .nav-toggle {
