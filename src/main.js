@@ -3,6 +3,7 @@
 import { wireFichaTecnicaButtons } from './ficha-tecnica.js'
 import { wireTelaSearch } from './search.js'
 import { wireMobileNav } from './nav.js'
+import { wireReadMore } from './read-more.js'
 
 // --- Tracking -------------------------------------------------
 // Los pixeles solo se cargan si los IDs placeholder fueron
@@ -108,4 +109,5 @@ document.addEventListener('DOMContentLoaded', () => {
   wireFichaTecnicaButtons()
   wireTelaSearch()
   wireMobileNav()
+  wireReadMore()
 })

@@ -503,6 +503,30 @@ summary {
   }
 }
 
+.read-more.is-collapsed {
+  max-height: 82px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent);
+}
+
+.read-more-toggle {
+  margin-top: 10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.read-more-toggle:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
 .section-intro {
   margin: 0;
   font-size: 16px;
