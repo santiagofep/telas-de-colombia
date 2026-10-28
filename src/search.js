@@ -4,14 +4,14 @@
 // escritos en la tarjeta (ej. "jean" para Índigo, "carpa" para Lona).
 
 const EXTRA_KEYWORDS = {
-  Antifluidos: 'salud hospital clinica enfermero medico laboratorio aseo',
+  Antifluidos: 'salud hospital clinica enfermero medico laboratorio aseo linfa stretch elastano',
   Burda: 'forro empaque economica base perchada abrigo invierno frio peluche',
-  Dril: 'uniforme dotacion trabajo pesado industrial pantalon overol vulcano galeon orion camila diamante bpt peach jean licrado elastano licra comodo movimiento everest balsato santana monserrat',
+  Dril: 'uniforme dotacion trabajo pesado industrial pantalon overol vulcano galeon orion mocka panda camila diamante bpt peach jean licrado elastano licra comodo movimiento everest balsato santana monserrat',
   Entretela: 'cuello puño refuerzo camisa estructura',
   Franela: 'pijama camiseta abrigo suave invierno tela fria punto algodon spandex blusa',
   Gabardina: 'pantalon chaqueta uniforme formal saco',
   Hogar: 'sabana cortina mantel decoracion cojin funda genero linea cobija paño lency toalla algodon siliconado almohada dulceabrigo pañal microfibra limpion camiseta punto satin raya blanco teñido 144 hilos poliester',
-  Índigo: 'jean denim mezclilla moda urbana no wash sin lavanderia dotacion',
+  Índigo: 'jean denim mezclilla moda urbana no wash oeste west sin lavanderia dotacion',
   Lona: 'carpa toldo bolso tapiceria impermeable industrial lienzo sublimar calima sheeting coraza cruda blanco',
   Moda: 'tendencia coleccion temporada diseño',
   'No tejido': 'empaque filtro tecnico mascarilla desechable guata relleno acolchado bondeo alma',
